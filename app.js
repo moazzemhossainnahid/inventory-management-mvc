@@ -169,6 +169,9 @@ app.post('/api/v1/product', async (req, res, next) => {
 // get product
 app.get("/api/v1/product", async (req, res, next) => {
     try {
+        // Operators
+        // =============================================================================================
+        // =============================================================================================
         // const products = await Product.find({});
 
         // ==========================
@@ -194,7 +197,23 @@ app.get("/api/v1/product", async (req, res, next) => {
         // ==========================
         // in Operator
         // ==========================
-        const products = await Product.find({ name: { $in: ["Rice", "Soyabin Oil"] } });
+        // const products = await Product.find({ name: { $in: ["Rice", "Soyabin Oil"] } });
+
+        // =============================================================================================
+        // =============================================================================================
+
+        // Projection
+        // const products = await Product.find({}, "name quantity price");
+        // const products = await Product.find({}, "-name -quantity");
+
+        // sorting
+        // const products = await Product.find({}).sort({ quantity: 1 });
+        // const products = await Product.find({}).sort({ quantity: -1 });
+
+        // selete
+        const products = await Product.find({}).select({ name: 1 });
+
+
 
         res.status(200).json({
             status: "success",
