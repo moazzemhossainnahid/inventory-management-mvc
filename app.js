@@ -75,19 +75,19 @@ const productSchema = mongoose.Schema({
     //     type: Date,
     //     default: Date.now,
     // },
-    supplier: {
-        type: mongoose.Schema.Types.OnjectId,
-        ref: "Supplier"
-    },
-    categories: [{
-        name: {
-            type: String,
-            required: true
-        },
-        _id: {
-            type: mongoose.Schema.Types.OnjectId,
-        }
-    }],
+    // supplier: {
+    //     type: mongoose.Schema.Types.OnjectId,
+    //     ref: "Supplier"
+    // },
+    // categories: [{
+    //     name: {
+    //         type: String,
+    //         required: true
+    //     },
+    //     _id: {
+    //         type: mongoose.Schema.Types.OnjectId,
+    //     }
+    // }],
 
 
 
@@ -104,6 +104,18 @@ const Product = mongoose.model("Product", productSchema);
 app.get("/", (req, res) => {
     res.send("Route is working! YaY!");
 });
+
+// posting to database
+app.post('/api/v1/product', async (req, res, next) => {
+    // save or create
+    const product = new Product(req.body);
+    const result = await product.save();
+    res.status(200).json({
+        status: "success",
+        message: "Data Inserted Successfull.",
+        data: result
+    })
+})
 
 
 module.exports = app;
