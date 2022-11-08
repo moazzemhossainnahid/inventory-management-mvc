@@ -108,11 +108,15 @@ productSchema.pre('save', function (next) {
     next();
 });
 
-productSchema.post('save', function (doc, next) {
-    console.log("After Saving Data");
+// productSchema.post('save', function (doc, next) {
+//     console.log("After Saving Data");
 
-    next();
-});
+//     next();
+// });
+
+productSchema.methods.logger = function () {
+    console.log(`Data Saved for ${this.name}`);
+}
 
 // =================================================================
 
@@ -144,6 +148,8 @@ app.post('/api/v1/product', async (req, res, next) => {
         // create
         const result = await Product.create(req.body);
 
+        result.logger();
+
 
         res.status(200).json({
             status: "success",
@@ -156,6 +162,26 @@ app.post('/api/v1/product', async (req, res, next) => {
             message: "Data isn't Inserted",
             error: error.message
         })
+    };
+});
+
+
+// get product
+app.get("/api/v1/products", async (req, res, next) => {
+    try {
+        const products = await Product.find({});
+        res.status(200).json({
+            status: "success",
+            message: "Data Get Successfull",
+            data: products
+        });
+
+    } catch (error) {
+        res.status(400).json({
+            status: "failed",
+            message: "Can't Get Data",
+            error: error.message
+        });
     };
 });
 
