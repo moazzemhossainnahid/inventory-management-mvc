@@ -6,7 +6,9 @@ const colors = require("colors");
 const app = require("./app");
 
 // database connection
-// DBConnect();
+mongoose.connect(process.env.DATABASE_LOCAL).then(() => {
+    console.log("Database Connection Successfull".red.bold);
+});
 
 // server
 const port = process.env.PORT || 8080;
