@@ -47,10 +47,45 @@ const productSchema = mongoose.Schema({
                 } else {
                     return false;
                 }
-            }
+            },
+            message: "Quantity must be an Integer."
         }
-    }
-})
+    },
+    status: {
+        type: String,
+        enum: {
+            value: ["in-stock", "out-of-stock", "discontinued"],
+            message: "Status Can't be {VALUE}, must be in-stock/out-of-stock/discontinued."
+        },
+        required: true
+
+    },
+    // createdAt: {
+    //     type: Date,
+    //     default: Date.now,
+    // },
+    // updatedAt: {
+    //     type: Date,
+    //     default: Date.now,
+    // },
+    supplier: {
+        type: mongoose.Schema.Types.OnjectId,
+        ref: "Supplier"
+    },
+    categories: [{
+        name: {
+            type: String,
+            required: true
+        },
+        _id: {
+            type: mongoose.Schema.Types.OnjectId,
+        }
+    }],
+
+
+
+
+}, { timestamps: true })
 
 app.get("/", (req, res) => {
     res.send("Route is working! YaY!");
