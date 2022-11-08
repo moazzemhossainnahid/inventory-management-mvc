@@ -167,9 +167,35 @@ app.post('/api/v1/product', async (req, res, next) => {
 
 
 // get product
-app.get("/api/v1/products", async (req, res, next) => {
+app.get("/api/v1/product", async (req, res, next) => {
     try {
-        const products = await Product.find({});
+        // const products = await Product.find({});
+
+        // ==========================
+        // Get by ID
+        // ==========================
+        // const products = await Product.find({ _id: "636a67aa073826aede164c52" });
+
+        // ==========================
+        // Or operator
+        // ==========================
+        // const products = await Product.find({$or: [{ _id: "636a67aa073826aede164c52" }, {name: "Rice"}]});
+
+        // ==========================
+        // Not Equal
+        // ==========================
+        // const products = await Product.find({ status: { $ne: "out-of-stock" } });
+
+        // ==========================
+        // Greter than Equal
+        // ==========================
+        // const products = await Product.find({ quantity: { $gte: 100 } });
+
+        // ==========================
+        // in Operator
+        // ==========================
+        const products = await Product.find({ name: { $in: ["Rice", "Soyabin Oil"] } });
+
         res.status(200).json({
             status: "success",
             message: "Data Get Successfull",
