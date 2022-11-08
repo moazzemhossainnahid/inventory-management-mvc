@@ -7,6 +7,13 @@ const mongoose = require("mongoose");
 app.use(express.json());
 app.use(cors());
 
+// =================================================================
+
+// SHEMA => MODEL => QUERY
+
+// =================================================================
+
+
 // Schema Design
 const productSchema = mongoose.Schema({
     name: {
@@ -31,7 +38,7 @@ const productSchema = mongoose.Schema({
         type: String,
         required: [true],
         enum: {
-            value: ["kg", "litre", "pcs"],
+            values: ["kg", "litre", "pcs"],
             message: "Unit value Can't be {VALUE}, must be kg/litre/pcs."
         },
     },
@@ -54,7 +61,7 @@ const productSchema = mongoose.Schema({
     status: {
         type: String,
         enum: {
-            value: ["in-stock", "out-of-stock", "discontinued"],
+            values: ["in-stock", "out-of-stock", "discontinued"],
             message: "Status Can't be {VALUE}, must be in-stock/out-of-stock/discontinued."
         },
         required: true
@@ -85,7 +92,14 @@ const productSchema = mongoose.Schema({
 
 
 
-}, { timestamps: true })
+}, { timestamps: true });
+
+// =================================================================
+
+// Add Model
+
+const Product = mongoose.model("Product", productSchema);
+
 
 app.get("/", (req, res) => {
     res.send("Route is working! YaY!");
