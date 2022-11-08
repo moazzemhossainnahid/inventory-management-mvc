@@ -109,8 +109,22 @@ app.get("/", (req, res) => {
 app.post('/api/v1/product', async (req, res, next) => {
     try {
         // save or create
+
+
+/*         // save
         const product = new Product(req.body);
-        const result = await product.save();
+
+        // Instance Creation => Do Something => Save()
+
+        if (product.quantity === 0) {
+            product.status = "out-of-stock"
+        }
+        const result = await product.save(); */
+
+        // create
+        const result = await Product.create(req.body);
+
+
         res.status(200).json({
             status: "success",
             message: "Data Inserted Successfull.",
