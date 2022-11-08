@@ -172,7 +172,7 @@ app.get("/api/v1/product", async (req, res, next) => {
         // Operators
         // =============================================================================================
         // =============================================================================================
-        // const products = await Product.find({});
+        const products = await Product.find({});
 
         // ==========================
         // Get by ID
@@ -211,7 +211,20 @@ app.get("/api/v1/product", async (req, res, next) => {
         // const products = await Product.find({}).sort({ quantity: -1 });
 
         // selete
-        const products = await Product.find({}).select({ name: 1 });
+        // const products = await Product.find({}).select({ name: 1 });
+
+        // chaining
+        /*         const products = await (await Product
+                    .where("name").equals(/\w/)
+                    .where("quantity").gt(100).lt(600)
+                    .limit(2).sort({quantity: -1})); */
+
+        // find by id
+        // const product = await Product.findById("636a5f04929eb7c6250c49b8");
+
+        // others
+/*         const product = await Product.findById(undefined);
+        const product = await Product.findById(_undefined); */
 
 
 
